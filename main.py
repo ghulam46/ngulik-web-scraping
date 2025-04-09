@@ -22,13 +22,17 @@ for block in country_blocks:
 
     population_element = block.find("span", {"class": "country-population"})
     population_name = population_element.get_text(strip=True)
+    
+    area_element = block.find("span", {"class": "country-area"})
+    area_name = area_element.get_text(strip=True)
 
     # Add to result
     result.append(
         {
             "name": country_name,
             "capital": capital_name,
-            "population": population_name
+            "population": population_name,
+            "area": area_name
         }
     )
 
@@ -37,16 +41,16 @@ for block in country_blocks:
 for item in result:
     print(
         {
-            f"Country: {item['name']}, Capital: {item['capital']}, Population: {item['population']}"
+            f"Country: {item['name']}, Capital: {item['capital']}, Population: {item['population']}, Area: {item['area']}"
         }
     )
 
 
 # Export to CSV
-# with open("country.csv", "w", newline="", encoding="utf-8") as csvfile:
-#     fieldnames = ["name", "capital", "population"]
-#     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-#     writer.writeheader()
+with open("country.csv", "w", newline="", encoding="utf-8") as csvfile:
+    fieldnames = ["name", "capital", "population", "area"]
+    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+    writer.writeheader()
 
-#     for item in result:
-#         writer.writerow(item)
+    for item in result:
+        writer.writerow(item)
